@@ -1,0 +1,95 @@
+{
+  "seed": 1337,
+  "exp_base": "./exps",
+  "exp_name": "case1_shaft",
+  "exp_id": "T6_400rpm_to_250rpm",
+  "agent": "APCTNAgent",
+  "num_epochs": 500,
+  "steps_epoch": null,
+  "validate_freq": 1,
+  "copy_checkpoint_freq": 50,
+  "cuda": true,
+  "gpu_device": null,
+  "data_params": {
+    "name": "case1_shaft",
+    "source": "400rpm",
+    "target": "250rpm",
+    "fewshot": "9",
+    "data_root": "./data",
+    "split_root": "./data/splits",
+    "image_size": 224,
+    "aug_src": "aug_0",
+    "aug_tgt": "aug_0",
+    "num_workers": 0,
+    "train_val_split": false
+  },
+  "model_params": {
+    "version": "tbcn",
+    "out_dim": 512,
+    "patch_size": 16,
+    "embed_dim": 64,
+    "transformer_depth": 2,
+    "num_heads": 4,
+    "mlp_ratio": 2.0,
+    "dropout": 0.1,
+    "prototype_threshold": 0.3,
+    "load_memory_bank": true
+  },
+  "optim_params": {
+    "learning_rate": 0.01,
+    "momentum": 0.9,
+    "batch_size": 64,
+    "batch_size_lbd": 64,
+    "batch_size_src": 64,
+    "batch_size_tgt": 64,
+    "conv_lr_ratio": 1.0,
+    "patience": 4,
+    "decay": true,
+    "weight_decay": 0.0005,
+    "nesterov": false,
+    "lr_decay_schedule": null,
+    "cls_update": true
+  },
+  "loss_params": {
+    "thres_src": 0.95,
+    "thres_tgt": 0.95,
+    "temp": 0.1,
+    "T": 0.05,
+    "loss": [
+      "cls-so",
+      "proto-each",
+      "I2C-cross",
+      "semi-condentmax",
+      "semi-entmin",
+      "tgt-condentmax",
+      "tgt-entmin"
+    ],
+    "weight": [
+      1.0,
+      0.5,
+      0.5,
+      0.01,
+      0.01,
+      0.01,
+      0.01
+    ],
+    "m": 0.5,
+    "pseudo": true,
+    "sample_ratio": null,
+    "k": 1,
+    "clus": {
+      "kmeans_freq": 1,
+      "type": [
+        "each"
+      ],
+      "n_k": 1,
+      "k": [
+        3
+      ],
+      "tgt_GC": null
+    }
+  },
+  "debug": false,
+  "pretrained_exp_dir": null,
+  "continue_exp_dir": null
+}
